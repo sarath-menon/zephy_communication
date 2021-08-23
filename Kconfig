@@ -1,0 +1,10 @@
+mainmenu "MYAPP"
+
+source "Kconfig.zephyr"
+config MYAPP_STM32
+  default y
+  bool
+  select USE_STM32_HAL_FOO
+  select USE_STM32_LL_BAR
+  select HAS_STM32CUBE
+  select USE_STM32_HAL_UART
