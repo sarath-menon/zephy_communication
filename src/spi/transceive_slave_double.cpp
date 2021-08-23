@@ -35,7 +35,7 @@ void main() {
 
   // SPI COnfiguration
   struct spi_config spi_cfg {
-    .frequency = 8000000, .operation = SPI_WORD_SET(16) | SPI_OP_MODE_SLAVE
+    .frequency = 3000000, .operation = SPI_WORD_SET(16) | SPI_OP_MODE_SLAVE
     // , .cs = &cs_ctrl
   };
 
