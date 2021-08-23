@@ -1,8 +1,10 @@
 #include "pid.h"
+#include <console/console.h>
 #include <device.h>
 #include <drivers/spi.h>
 #include <math.h>
 #include <stdio.h>
+#include <sys/printk.h>
 
 int spi_master_transceive(const struct device *spi, struct spi_config *spi_cfg,
                           double *tx_data, double *rx_data) {
@@ -44,6 +46,10 @@ constexpr static float dt = 0.01;
 
 void main() {
 
+  console_init();
+  printk("Type the letter s to start the controller\n");
+  uint8_t c = console_getchar();
+
   // SPI COnfiguration
   struct spi_config spi_cfg {
     .frequency = 3000000,
@@ -51,23 +57,25 @@ void main() {
     // , .cs = &cs_ctrl
   };
 
-  while (1) {
+  if (c == 's') {
 
-    int status =
-        spi_master_transceive(spi, &spi_cfg, &thrust_command, &z_measured);
+    while (1) {
+      int status =
+          spi_master_transceive(spi, &spi_cfg, &thrust_command, &z_measured);
 
-    if (z_measured != NAN) {
-      altitude_error = altitude_target - z_measured;
-      printf("Altitude error: %f\n\n", altitude_error);
+      if (z_measured != NAN) {
+        altitude_error = altitude_target - z_measured;
+        printf("Altitude error: %f\n\n", altitude_error);
 
-      pid_output = pid(altitude_error, k_p__z, k_i__z, k_d__z, dt);
-      // Motors have a maximum speed limit
-      thrust_command = fmin(ff_thrust + pid_output, 25);
-      // Motors cant be rotated in reverse during flight
-      thrust_command = fmax(thrust_command, 0);
-      printf("Thrust command: %f\n", thrust_command);
+        pid_output = pid(altitude_error, k_p__z, k_i__z, k_d__z, dt);
+        // Motors have a maximum speed limit
+        thrust_command = fmin(ff_thrust + pid_output, 25);
+        // Motors cant be rotated in reverse during flight
+        thrust_command = fmax(thrust_command, 0);
+        printf("Thrust command: %f\n", thrust_command);
+      }
+
+      k_sleep(K_TIMEOUT_ABS_MS(1));
     }
-
-    k_sleep(K_TIMEOUT_ABS_MS(1));
   }
 }
