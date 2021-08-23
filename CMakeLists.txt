@@ -17,10 +17,20 @@ project(stm32_pm_blinky)
 # UART
 # target_sources(app PRIVATE src/uart/uart_send.cpp)
 # target_sources(app PRIVATE src/uart/console_char_read.cpp)
-target_sources(app PRIVATE src/uart/console_line_read.cpp)
+# target_sources(app PRIVATE src/uart/console_line_read.cpp)
+#target_sources(app PRIVATE src/uart/console_interrupt.cpp)
+
+# STM32 HAL Comm
+# target_sources(app PRIVATE
+
+# src/stm32_hal_comm/uart/uart_hal.cpp
+# src/stm32_hal_comm/uart/hal_functions.cpp
+# )
+
+add_subdirectory(src)
 
 # Controller
-# target_sources(app PRIVATE src/controller/controller.cpp)
+#arget_sources(app PRIVATE src/controller/controller.cpp)
 
 # target_include_directories(app PUBLIC external/PX4-Matrix)
 

@@ -54,7 +54,6 @@ void main() {
   struct spi_config spi_cfg {
     .frequency = 3000000,
     .operation = SPI_WORD_SET(16) | SPI_TRANSFER_MSB | SPI_OP_MODE_MASTER
-    // , .cs = &cs_ctrl
   };
 
   if (c == 's') {
