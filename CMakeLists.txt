@@ -8,13 +8,18 @@ project(stm32_pm_blinky)
 
 
 # SPI
-
 # target_sources(app PRIVATE src/spi/transceive_master_double.cpp)
-target_sources(app PRIVATE src/spi/transceive_slave_double.cpp)
+#target_sources(app PRIVATE src/spi/transceive_slave_double.cpp)
+
+# SPI Interrupt
+#target_sources(app PRIVATE src/spi_interrupt/spi_slave_interrupt.cpp)
 
 # UART
-
 # target_sources(app PRIVATE src/uart/uart_send.cpp)
+# target_sources(app PRIVATE src/uart/console_read.cpp)
 
-target_include_directories(app PUBLIC external/PX4-Matrix)
+# Controller
+target_sources(app PRIVATE src/controller/controller.cpp)
+
+# target_include_directories(app PUBLIC external/PX4-Matrix)
 
