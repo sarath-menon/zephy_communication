@@ -13,10 +13,6 @@ void Error_Handler(void);
 
 int main() {
 
-  HAL_Init();
-
-  // SystemClock_Config();
-  MX_GPIO_Init();
   MX_USART2_UART_Init();
 
   while (1) {
