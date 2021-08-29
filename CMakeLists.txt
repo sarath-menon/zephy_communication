@@ -5,16 +5,9 @@ set(BOARD nucleo_l432kc)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(stm32_pm_blinky)
 
-
-
-# SPI
-
 # target_sources(app PRIVATE src/spi/transceive_master_double.cpp)
-target_sources(app PRIVATE src/spi/transceive_slave_double.cpp)
+target_sources(app PRIVATE src/controller/controller.cpp)
 
-# UART
-
-# target_sources(app PRIVATE src/uart/uart_send.cpp)
 
 target_include_directories(app PUBLIC external/PX4-Matrix)
 
